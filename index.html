@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betoffice — Bahis Eğlencesine Cebin Dolu Başla</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ============================================================
+   RESET & TOKENS
+============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #00279c;
+            --blue-dark: #00154f;
+            --blue-mid: #0033cc;
+            --gold: #fea703;
+            --gold-pale: rgba(254, 167, 3, 0.12);
+            --gold-line: rgba(254, 167, 3, 0.3);
+            --ink: #08080c;
+            --surface: #0f0f18;
+            --card: #13131e;
+            --border: rgba(255, 255, 255, 0.07);
+            --white: #ffffff;
+            --muted: #7a7a94;
+            --fd: 'Barlow Condensed', sans-serif;
+            --fb: 'DM Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--ink);
+            color: var(--white);
+            font-family: var(--fb);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ============================================================
+   TICKER
+============================================================ */
+        .ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: var(--gold);
+            z-index: 3000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-track {
+            display: flex;
+            white-space: nowrap;
+            animation: tick 34s linear infinite;
+        }
+
+        .ticker-item {
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: .75rem;
+            color: #000;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-shrink: 0;
+        }
+
+        .ticker-item .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--blue);
+            flex-shrink: 0;
+        }
+
+        @keyframes tick {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ============================================================
+   HEADER
+============================================================ */
+        header {
+            position: fixed;
+            top: 30px;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+            height: 58px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: var(--ink);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            flex-shrink: 1;
+        }
+
+        .logo img {
+            height: 26px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-nav {
+            display: none;
+        }
+
+        .header-cta {
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: .82rem;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: #000;
+            background: var(--gold);
+            padding: 7px 14px;
+            border-radius: 3px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: opacity .2s;
+        }
+
+        .header-cta:hover {
+            opacity: .85;
+        }
+
+        /* ============================================================
+   HERO
+============================================================ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 112px 20px 64px;
+            text-align: center;
+            /* Background image with overlay for readability */
+            background:
+                linear-gradient(180deg, rgba(8, 14, 30, 0.85) 0%, rgba(8, 14, 30, 0.45) 100%),
+                url('hero-bg-welcome.png') center center / cover no-repeat;
+        }
+
+        /* Gold accent line at top */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--blue-mid) 70%, transparent 100%);
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--fb);
+            font-size: .72rem;
+            font-weight: 500;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(254, 167, 3, .5);
+            }
+
+            50% {
+                box-shadow: 0 0 0 7px rgba(254, 167, 3, 0);
+            }
+        }
+
+        .hero h1 {
+            font-family: var(--fd);
+            font-weight: 900;
+            font-size: clamp(2.8rem, 12vw, 6rem);
+            line-height: .92;
+            text-transform: uppercase;
+            letter-spacing: -.01em;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 .line-gold {
+            color: var(--gold);
+            display: block;
+        }
+
+        .hero h1 .line-outline {
+            -webkit-text-stroke: 2px rgba(255, 255, 255, .22);
+            color: transparent;
+            display: block;
+        }
+
+        .hero-desc {
+            font-size: .97rem;
+            color: var(--muted);
+            max-width: 480px;
+            margin: 0 auto 32px;
+            line-height: 1.75;
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        /* ============================================================
+   SHARED BUTTONS
+============================================================ */
+        .btn-primary {
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: #000;
+            background: var(--gold);
+            padding: 13px 30px;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+            transition: opacity .2s, transform .15s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            opacity: .88;
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: var(--white);
+            background: transparent;
+            padding: 13px 30px;
+            border-radius: 3px;
+            border: 1.5px solid rgba(255, 255, 255, .2);
+            cursor: pointer;
+            display: inline-block;
+            transition: border-color .25s, color .25s;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ============================================================
+   TRUST STRIP
+============================================================ */
+        .trust-strip {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 40px 20px;
+        }
+
+        .trust-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 12px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .trust-block h4 {
+            font-family: var(--fd);
+            font-weight: 900;
+            font-size: clamp(1.9rem, 5.5vw, 2.8rem);
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .trust-block h4 span {
+            color: var(--gold);
+        }
+
+        .trust-block p {
+            font-size: .7rem;
+            color: var(--muted);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+   STEPS
+============================================================ */
+        .steps-section {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 68px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 52px;
+        }
+
+        .section-label {
+            display: block;
+            font-family: var(--fb);
+            font-size: .68rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: var(--fd);
+            font-weight: 900;
+            font-size: clamp(2rem, 7vw, 3.8rem);
+            text-transform: uppercase;
+            line-height: .93;
+        }
+
+        .section-title em {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 28px 0;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .step-item:last-child {
+            border-bottom: none;
+        }
+
+        .step-num-box {
+            width: 52px;
+            height: 52px;
+            border: 1px solid var(--gold-line);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: var(--gold-pale);
+        }
+
+        .step-num {
+            font-family: var(--fd);
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+
+        .step-body {
+            flex: 1;
+        }
+
+        .step-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #000;
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: .62rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 2px;
+            margin-bottom: 6px;
+        }
+
+        .step-body h3 {
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin-bottom: 4px;
+        }
+
+        .step-body p {
+            font-size: .86rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+   BONUS CARDS
+============================================================ */
+        .bonuses-section {
+            padding: 68px 20px;
+        }
+
+        .bonuses-header {
+            text-align: center;
+            margin-bottom: 44px;
+        }
+
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .bonus-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .25s, box-shadow .25s;
+        }
+
+        /* Left accent line */
+        .bonus-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gold);
+            opacity: .5;
+            transition: opacity .25s;
+        }
+
+        .bonus-card:hover {
+            border-color: rgba(254, 167, 3, .35);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .45);
+        }
+
+        .bonus-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Featured */
+        .bonus-card.featured {
+            background: linear-gradient(135deg, rgba(0, 51, 204, .22) 0%, var(--card) 100%);
+            border-color: rgba(0, 51, 204, .35);
+        }
+
+        .bonus-card.featured::before {
+            background: linear-gradient(180deg, var(--blue-mid), var(--blue));
+            opacity: 1;
+        }
+
+        .bonus-card.featured:hover {
+            border-color: rgba(0, 51, 204, .7);
+        }
+
+        .card-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: var(--fb);
+            font-size: .64rem;
+            font-weight: 500;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 2px;
+            background: var(--gold-pale);
+            color: var(--gold);
+            border: 1px solid var(--gold-line);
+            align-self: flex-start;
+        }
+
+        .card-tag.blue-tag {
+            background: rgba(0, 51, 204, .15);
+            color: #6699ff;
+            border-color: rgba(0, 51, 204, .3);
+        }
+
+        /* Card row: amount + name side by side on wider cards */
+        .card-top {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .card-amount {
+            font-family: var(--fd);
+            font-weight: 900;
+        }
+
+        .card-amount .pct {
+            font-size: clamp(3rem, 9vw, 4.8rem);
+            line-height: .88;
+            display: block;
+            color: var(--white);
+        }
+
+        .bonus-card.featured .card-amount .pct {
+            color: #6699ff;
+        }
+
+        .card-amount .cap {
+            font-size: .88rem;
+            color: var(--muted);
+            font-family: var(--fb);
+            font-weight: 400;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .card-name {
+            font-family: var(--fd);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: rgba(255, 255, 255, .55);
+            align-self: flex-end;
+        }
+
+        .card-desc {
+            font-size: .84rem;
+            color: var(--muted);
+            line-height: 1.65;
+            flex: 1;
+        }
+
+        .card-cta {
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: .95rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: 13px;
+            border-radius: 4px;
+            border: 1.5px solid var(--gold-line);
+            color: var(--gold);
+            background: transparent;
+            transition: background .22s, color .22s, border-color .22s;
+        }
+
+        .card-cta:hover {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+        }
+
+        .bonus-card.featured .card-cta {
+            background: var(--blue);
+            color: #fff;
+            border-color: var(--blue);
+        }
+
+        .bonus-card.featured .card-cta:hover {
+            background: #0044ff;
+            border-color: #0044ff;
+        }
+
+        .card-terms {
+            font-size: .66rem;
+            color: rgba(255, 255, 255, .18);
+            text-align: center;
+            letter-spacing: .04em;
+        }
+
+        /* ============================================================
+   RESPONSIBLE GAMING
+============================================================ */
+        .rg-banner {
+            padding: 0 20px 52px;
+        }
+
+        .rg-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 26px 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        .rg-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(254, 167, 3, .08);
+            border: 1px solid rgba(254, 167, 3, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .rg-text h4 {
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 4px;
+        }
+
+        .rg-text p {
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* ============================================================
+   FOOTER
+============================================================ */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 52px 20px 30px;
+        }
+
+        .footer-top {
+            margin-bottom: 32px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            height: 28px;
+            width: auto;
+            margin-bottom: 16px;
+        }
+
+        .footer-license-title {
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: .85rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 7px;
+        }
+
+        .footer-license-text {
+            font-size: .77rem;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 28px 0;
+        }
+
+        .footer-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            margin-bottom: 28px;
+        }
+
+        .footer-nav a {
+            font-size: .82rem;
+            color: rgba(255, 255, 255, .38);
+            transition: color .2s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .footer-bottom p {
+            font-size: .73rem;
+            color: rgba(255, 255, 255, .18);
+        }
+
+        .footer-compliance {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .compliance-img {
+            height: 24px;
+            width: auto;
+            opacity: .5;
+            transition: opacity .2s;
+        }
+
+        .compliance-img:hover {
+            opacity: 1;
+        }
+
+        .compliance-badge {
+            font-family: var(--fd);
+            font-size: .62rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 2px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        /* ============================================================
+   REVEAL
+============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================================
+   BREAKPOINTS — mobile first
+============================================================ */
+
+        /* ≥ 480px */
+        @media (min-width: 480px) {
+            header {
+                padding: 0 20px;
+            }
+
+            .logo img {
+                height: 30px;
+            }
+
+            .hero {
+                padding: 118px 28px 68px;
+            }
+        }
+
+        /* ≥ 640px */
+        @media (min-width: 640px) {
+            header {
+                height: 62px;
+                padding: 0 28px;
+            }
+
+            .logo img {
+                height: 34px;
+            }
+
+            .hero {
+                padding: 132px 36px 80px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
+            }
+
+            .step-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 32px 20px;
+                border-bottom: none;
+                border-right: 1px solid var(--border);
+            }
+
+            .step-item:nth-child(even) {
+                border-right: none;
+            }
+
+            .bonus-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .rg-inner {
+                flex-direction: row;
+                text-align: left;
+                padding: 32px 36px;
+                gap: 24px;
+            }
+
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        /* ≥ 900px */
+        @media (min-width: 900px) {
+            header {
+                height: 66px;
+                padding: 0 40px;
+            }
+
+            .logo img {
+                height: 36px;
+            }
+
+            .header-nav {
+                display: flex;
+                align-items: center;
+                gap: 28px;
+                flex: 1;
+                justify-content: center;
+            }
+
+            .header-nav a {
+                font-family: var(--fb);
+                font-size: .8rem;
+                font-weight: 500;
+                letter-spacing: .08em;
+                text-transform: uppercase;
+                color: var(--muted);
+                transition: color .25s;
+            }
+
+            .header-nav a:hover {
+                color: var(--white);
+            }
+
+            .header-cta {
+                padding: 9px 26px;
+                font-size: .9rem;
+            }
+
+            .hero {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+                gap: 0;
+                min-height: calc(100vh - 30px);
+                text-align: left;
+                padding: 150px 40px 90px;
+            }
+
+            .hero-desc {
+                margin: 0 0 30px;
+            }
+
+            .hero-ctas {
+                justify-content: flex-start;
+            }
+
+            /* Right side visual — simple stat block */
+            .hero-visual-simple {
+                display: flex !important;
+                flex-direction: column;
+                gap: 16px;
+                padding-left: 60px;
+            }
+
+            .trust-strip {
+                padding: 48px 40px;
+            }
+
+            .trust-inner {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .steps-section {
+                padding: 80px 40px;
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0;
+            }
+
+            .step-item {
+                border-right: 1px solid var(--border);
+                border-bottom: none;
+                padding: 0 32px 0;
+            }
+
+            .step-item:last-child {
+                border-right: none;
+            }
+
+            .bonuses-section {
+                padding: 80px 40px;
+            }
+
+            .bonus-grid {
+                grid-template-columns: 1.2fr 1fr 1fr 1fr;
+            }
+
+            .rg-banner {
+                padding: 0 40px 60px;
+            }
+
+            footer {
+                padding: 60px 40px 36px;
+            }
+        }
+
+        /* ≥ 1200px */
+        @media (min-width: 1200px) {
+            header {
+                padding: 0 5%;
+            }
+
+            .hero,
+            .steps-section,
+            .bonuses-section,
+            footer {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .rg-banner {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+        }
+
+        /* Hero visual simple — hidden mobile, shown ≥ 900 */
+        .hero-visual-simple {
+            display: none;
+        }
+
+        .hv-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: border-color .25s;
+        }
+
+        .hv-card:hover {
+            border-color: var(--gold-line);
+        }
+
+        .hv-card.blue {
+            border-color: rgba(0, 51, 204, .3);
+        }
+
+        .hv-card.blue:hover {
+            border-color: rgba(0, 51, 204, .7);
+        }
+
+        .hv-pct {
+            font-family: var(--fd);
+            font-weight: 900;
+            font-size: 2.8rem;
+            color: var(--gold);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .hv-card.blue .hv-pct {
+            color: #6699ff;
+        }
+
+        .hv-info {}
+
+        .hv-name {
+            font-family: var(--fd);
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        .hv-cap {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .hv-arrow {
+            margin-left: auto;
+            color: var(--gold);
+            font-size: 1rem;
+            flex-shrink: 0;
+            opacity: .5;
+        }
+
+        .hv-card:hover .hv-arrow {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ticker -->
+    <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+            <span class="ticker-item"><span class="dot"></span>Fenerbahçe 1.85</span>
+            <span class="ticker-item"><span class="dot"></span>Galatasaray 2.10</span>
+            <span class="ticker-item"><span class="dot"></span>Real Madrid 1.55</span>
+            <span class="ticker-item"><span class="dot"></span>Man City 1.70</span>
+            <span class="ticker-item"><span class="dot"></span>Bayern Münih 1.90</span>
+            <span class="ticker-item"><span class="dot"></span>Beşiktaş 3.20</span>
+            <span class="ticker-item"><span class="dot"></span>Liverpool 1.65</span>
+            <span class="ticker-item"><span class="dot"></span>Barcelona 2.05</span>
+            <span class="ticker-item"><span class="dot"></span>Trabzonspor 2.75</span>
+            <span class="ticker-item"><span class="dot"></span>PSG 1.80</span>
+            <span class="ticker-item"><span class="dot"></span>Fenerbahçe 1.85</span>
+            <span class="ticker-item"><span class="dot"></span>Galatasaray 2.10</span>
+            <span class="ticker-item"><span class="dot"></span>Real Madrid 1.55</span>
+            <span class="ticker-item"><span class="dot"></span>Man City 1.70</span>
+            <span class="ticker-item"><span class="dot"></span>Bayern Münih 1.90</span>
+            <span class="ticker-item"><span class="dot"></span>Beşiktaş 3.20</span>
+            <span class="ticker-item"><span class="dot"></span>Liverpool 1.65</span>
+            <span class="ticker-item"><span class="dot"></span>Barcelona 2.05</span>
+            <span class="ticker-item"><span class="dot"></span>Trabzonspor 2.75</span>
+            <span class="ticker-item"><span class="dot"></span>PSG 1.80</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <a class="logo" href="#"><img src="betoffice-logo.svg" alt="Betoffice"></a>
+        <nav class="header-nav">
+            <a href="#">Bahis Sihirbazı</a>
+            <a href="#">Ödeme Yöntemleri</a>
+            <a href="#">Canlı Destek</a>
+        </nav>
+        <a href="#" class="header-cta">Kayıt Ol</a>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-eyebrow"><span class="pulse-dot"></span>Yeni Üye Kampanyaları — 2026</span>
+            <h1>
+                <span>Bahis Eğlencesine</span>
+                <span class="line-gold">Cebin Dolu</span>
+                <span class="line-outline">Başla</span>
+            </h1>
+            <p class="hero-desc">Yeni üyelere özel 4 farklı dev hoş geldin paketinden dilediğini seç. 20.000 TL'ye varan
+                bonuslar seni bekliyor.</p>
+            <div class="hero-ctas">
+                <a href="#bonuses" class="btn-primary">Teklifleri Keşfet</a>
+                <a href="#steps" class="btn-ghost">Nasıl Çalışır?</a>
+            </div>
+        </div>
+
+        <!-- Desktop only: offer list preview -->
+        <div class="hero-visual-simple" aria-hidden="true">
+            <a href="#bonuses" class="hv-card blue">
+                <div class="hv-pct">₺20K</div>
+                <div class="hv-info">
+                    <div class="hv-name">Mega Bonus</div>
+                    <div class="hv-cap">%100 Yatırım Bonusu</div>
+                </div>
+                <span class="hv-arrow">→</span>
+            </a>
+            <a href="#bonuses" class="hv-card">
+                <div class="hv-pct">%300</div>
+                <div class="hv-info">
+                    <div class="hv-name">Kripto Bonusu</div>
+                    <div class="hv-cap">1.000 TL'ye kadar</div>
+                </div>
+                <span class="hv-arrow">→</span>
+            </a>
+            <a href="#bonuses" class="hv-card">
+                <div class="hv-pct">%200</div>
+                <div class="hv-info">
+                    <div class="hv-name">Hoş Geldin</div>
+                    <div class="hv-cap">1.000 TL'ye kadar</div>
+                </div>
+                <span class="hv-arrow">→</span>
+            </a>
+            <a href="#bonuses" class="hv-card">
+                <div class="hv-pct">%150</div>
+                <div class="hv-info">
+                    <div class="hv-name">Dev Paket</div>
+                    <div class="hv-cap">7.500 TL'ye kadar</div>
+                </div>
+                <span class="hv-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Trust Strip -->
+    <div class="trust-strip reveal">
+        <div class="trust-inner">
+            <div class="trust-block">
+                <h4><span>+</span>500.000</h4>
+                <p>Aktif Üye</p>
+            </div>
+            <div class="trust-block">
+                <h4>7<span>/</span>24</h4>
+                <p>Canlı Destek</p>
+            </div>
+            <div class="trust-block">
+                <h4><span>₺</span>20.000</h4>
+                <p>Maks. Bonus</p>
+            </div>
+            <div class="trust-block">
+                <h4>%300</h4>
+                <p>En Yüksek Bonus</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Steps -->
+    <section class="steps-section" id="steps">
+        <div class="section-header reveal">
+            <span class="section-label">Nasıl Çalışır</span>
+            <h2 class="section-title">4 Adımda <em>Kazanmaya Başla</em></h2>
+        </div>
+        <div class="steps-grid">
+            <div class="step-item reveal">
+                <div class="step-num-box"><span class="step-num">01</span></div>
+                <div class="step-body">
+                    <span class="step-badge">Hızlı &amp; Kolay</span>
+                    <h3>Hesap Aç</h3>
+                    <p>2 dakikadan kısa sürede üyeliğini tamamla, hemen başla.</p>
+                </div>
+            </div>
+            <div class="step-item reveal">
+                <div class="step-num-box"><span class="step-num">02</span></div>
+                <div class="step-body">
+                    <span class="step-badge">4 Seçenek</span>
+                    <h3>Bonusu Seç</h3>
+                    <p>Sana en uygun kampanyayı profilinden tek tıkla aktif et.</p>
+                </div>
+            </div>
+            <div class="step-item reveal">
+                <div class="step-num-box"><span class="step-num">03</span></div>
+                <div class="step-body">
+                    <span class="step-badge">Güvenli</span>
+                    <h3>Para Yatır</h3>
+                    <p>Banka, kripto veya e-cüzdan ile anında yatırım yap.</p>
+                </div>
+            </div>
+            <div class="step-item reveal">
+                <div class="step-num-box"><span class="step-num">04</span></div>
+                <div class="step-body">
+                    <span class="step-badge">Anında</span>
+                    <h3>Kazan</h3>
+                    <p>Bakiyen anında güncellenir. Favori bahislerine hemen gir!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bonuses -->
+    <section class="bonuses-section" id="bonuses">
+        <div class="bonuses-header reveal">
+            <span class="section-label">Hoş Geldin Paketleri</span>
+            <h2 class="section-title">Dilediğin <em>Bonusu Sen Seç</em></h2>
+        </div>
+        <div class="bonus-grid">
+
+            <div class="bonus-card featured reveal">
+                <span class="card-tag blue-tag">★ En Büyük Paket</span>
+                <div class="card-top">
+                    <div class="card-amount">
+                        <span class="pct">₺20.000</span>
+                        <span class="cap">%100 Yatırım Bonusu</span>
+                    </div>
+                    <div class="card-name">Mega Bonus</div>
+                </div>
+                <p class="card-desc">Platforma hoş geldin! Yatırımının tam %100'ü kadar bonus al — 20.000 TL'ye varan
+                    devasa bir başlangıç. Büyük oyna, büyük kazan.</p>
+                <a href="#" class="card-cta">Teklifi Seç</a>
+                <p class="card-terms">Şartlar ve koşullar geçerlidir. 18+</p>
+            </div>
+
+            <div class="bonus-card reveal">
+                <span class="card-tag">🔥 Kripto Özel</span>
+                <div class="card-top">
+                    <div class="card-amount">
+                        <span class="pct">%300</span>
+                        <span class="cap">1.000 TL'ye kadar</span>
+                    </div>
+                    <div class="card-name">Kripto Bonusu</div>
+                </div>
+                <p class="card-desc">Kripto yöntemleriyle yatırım yap, 3 katı bonus kazan. Hızlı, güvenli ve karlı.</p>
+                <a href="#" class="card-cta">Teklifi Seç</a>
+                <p class="card-terms">Şartlar ve koşullar geçerlidir. 18+</p>
+            </div>
+
+            <div class="bonus-card reveal">
+                <span class="card-tag">👋 Yeni Üye</span>
+                <div class="card-top">
+                    <div class="card-amount">
+                        <span class="pct">%200</span>
+                        <span class="cap">1.000 TL'ye kadar</span>
+                    </div>
+                    <div class="card-name">Hoş Geldin</div>
+                </div>
+                <p class="card-desc">İlk yatırımına tam 2 katı bonus! Klasik ama güçlü bir başlangıç paketi.</p>
+                <a href="#" class="card-cta">Teklifi Seç</a>
+                <p class="card-terms">Şartlar ve koşullar geçerlidir. 18+</p>
+            </div>
+
+            <div class="bonus-card reveal">
+                <span class="card-tag">💎 Dev Paket</span>
+                <div class="card-top">
+                    <div class="card-amount">
+                        <span class="pct">%150</span>
+                        <span class="cap">7.500 TL'ye kadar</span>
+                    </div>
+                    <div class="card-name">Dev Paket</div>
+                </div>
+                <p class="card-desc">Daha yüksek limite ihtiyacın varsa bu paket tam sana göre. 7.500 TL'ye varan bonus.
+                </p>
+                <a href="#" class="card-cta">Teklifi Seç</a>
+                <p class="card-terms">Şartlar ve koşullar geçerlidir. 18+</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Responsible Gaming -->
+    <div class="rg-banner reveal">
+        <div class="rg-inner">
+            <div class="rg-icon">⚠️</div>
+            <div class="rg-text">
+                <h4>Bilinçli Oyun Politikamız</h4>
+                <p>Şans oyunları eğlence amaçlıdır. Kaybetmeyi göze alabileceğinizden fazlasını harcamayın. Yardıma
+                    ihtiyacınız varsa <strong>Canlı Destek</strong> hattımızdan bize ulaşabilirsiniz. Betoffice sadece
+                    18 yaş üzeri kullanıcılara hizmet vermektedir.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <img src="betoffice-logo.svg" alt="Betoffice" class="footer-logo">
+            <p class="footer-license-title">Anjouan Gaming License</p>
+            <p class="footer-license-text">Bu site, Curaçao Ticaret ve Sanayi Odası Ticaret Siciline, tescil edilen
+                kayıt numarası ile Hit Entertainment B.V tarafından işletilmektedir. Lisans numarası 8048/JAZ Curaçao
+                Egaming tarafından verilmiştir. Curaçao Hükümeti tarafından yetkilendirilir ve düzenlenir.</p>
+        </div>
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <p>© Betoffice 2026. Tüm hakları saklıdır. Sadece 18+ kullanıcılara açıktır.</p>
+            <div class="footer-compliance">
+                <img src="Anjouan-license.png" alt="Anjouan License" class="compliance-img">
+                <img src="gcb.webp" alt="GCB Lisanslı" class="compliance-img">
+                <img src="dmca.webp" alt="DMCA Protected" class="compliance-img">
+                <span class="compliance-badge">SSL Güvenli</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* Scroll reveal */
+        (function () {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((e, i) => {
+                    if (e.isIntersecting) {
+                        e.target.style.transitionDelay = (i * .07) + 's';
+                        e.target.classList.add('visible');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: .1 });
+            document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+        })();
+
+        /* Header scroll tint */
+        (function () {
+            const h = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                h.style.borderBottomColor = window.scrollY > 40
+                    ? 'rgba(254,167,3,0.25)'
+                    : 'rgba(255,255,255,0.07)';
+            }, { passive: true });
+        })();
+    </script>
+</body>
+
+</html>
